@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>MyWeatherApp</title>
+    <base href="/" />
+    <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+        integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="css/app.css" rel="stylesheet" />
+    <link href="MyWeatherApp.styles.css" rel="stylesheet" />
+
+     <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/6.3.3/firebase-app.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+      https://firebase.google.com/docs/web/setup#config-web-app -->
+    <script src="https://www.gstatic.com/firebasejs/6.3.3/firebase-auth.js"></script>
+    <!-- Firebase UI -->
+    <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
+</head>
+
+<body>
+    <div id="app">Loading...</div>
+
+    <div id="blazor-error-ui">
+        An unhandled error has occurred.
+        <a href="" class="reload">Reload</a>
+        <a class="dismiss">🗙</a>
+    </div>
+    <script src="_framework/blazor.webassembly.js"></script>
+    <div id="firebaseui-auth-container">
+        <!-- This is where the Login ui will load -->
+    </div>
+   
+    <!-- <script>
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+            apiKey: "AIzaSyBgJWciTPppsddFimj2JDH2AGXEiSOgFKI",
+            authDomain: "minhhieugma-146816.firebaseapp.com",
+            databaseURL: "https://minhhieugma-146816.firebaseio.com",
+            projectId: "minhhieugma-146816",
+            storageBucket: "minhhieugma-146816.appspot.com",
+            messagingSenderId: "128954796547",
+            appId: "1:128954796547:web:98befa8785cd0ff97a5c36",
+            measurementId: "G-JWBZFK4RGS"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+    </script> -->
+    <!-- Firebase UI -->
+    <!-- <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script> -->
+    <!-- <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" /> -->
+    <!-- <script>
+        // 1) Create a new firebaseui.auth instance stored to our local variable ui
+        const ui = new firebaseui.auth.AuthUI(firebase.auth())
+
+        // 2) These are our configurations.
+        const uiConfig = {
+            callbacks: {
+                signInSuccessWithAuthResult(authResult, redirectUrl) {
+                    return true
+                },
+                uiShown() {
+                    alert('uiShown')
+                },
+            },
+            signInFlow: "popup",
+            signInSuccessUrl: "signedIn",
+            signInOptions: [
+                // firebase.auth.EmailAuthProvider.PROVIDER_ID,
+                firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+                // Additional login options should be listed here
+                // once they are enabled within the console.
+            ],
+        }
+
+        // 3) Call the 'start' method on our ui class
+        // including our configuration options.
+        ui.start("#firebaseui-auth-container", uiConfig)
+
+    </script> -->
+</body>
+
+</html>

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>/Users/hieu.le/sources/lambton/Software Tools and Emerging Technologies for AI and ML/my-weather-app/MyWeatherApp/Pages/Weather.razor</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+@using System.Text.Json
+@using System.Text.Json.Serialization
+@inject IJSRuntime JS
+@inject HttpClient Http
+@implements IAsyncDisposable
+
+&lt;div class=&quot;main&quot;&gt;
+    @if (Model != null)
+    {
+        @* @JsonSerializer.Serialize(Model) *@
+        &lt;div class=&quot;widget&quot; style=&quot;width: 18rem;&quot;&gt;
+            &lt;i class=&quot;fa fa-4x fa-solid fa-sun icon&quot;&gt;&lt;/i&gt;
+            &lt;div&gt;
+                &lt;div class=&quot;country&quot;&gt;@Model.Name&lt;/div&gt;
+                &lt;div class=&quot;degree&quot;&gt;@Math.Round(Model.Main.Temp)&#176;&lt;/div&gt;
+                &lt;div class=&quot;clock&quot;&gt;@Time&lt;/div&gt;
+            &lt;/div&gt;
+
+        &lt;/div&gt;
+    }
+
+
+&lt;/div&gt;
+
+
+@code {
+    private IJSObjectReference? module;
+
+    private WeatherModel? Model { get; set; }
+    private string Time { get; set; } = string.Empty;
+
+    protected async override void OnInitialized()
+    {
+        base.OnInitialized();
+        var timer = new System.Threading.Timer((_) =&gt;
+        {
+
+            InvokeAsync(()  =&gt;
+            {
+                Time =  DateTime.Now.ToString(&quot;yyyy-MM-dd HH:mm:ss&quot;);
+                StateHasChanged();
+            });
+        }, null, 0, 1000);
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            @* module = await JS.InvokeAsync&lt;IJSObjectReference&gt;(&quot;import&quot;,
+                &quot;./Pages/Clock.razor.js&quot;);
+
+                await module.InvokeAsync&lt;string&gt;(&quot;time&quot;); *@
+
+
+            var response = await
+                        Http.GetFromJsonAsync&lt;WeatherModel&gt;(&quot;https://api.openweathermap.org/data/2.5/weather?lat=43.7615&amp;lon=-79.4111&amp;appid=bbd1ee00f3a4026cc99e112e4fbb7a82&amp;units=metric&quot;);
+
+            this.Model = response;
+
+            StateHasChanged();
+        }
+    }
+
+    async ValueTask IAsyncDisposable.DisposeAsync()
+    {
+        if (module is not null)
+        {
+            await module.DisposeAsync();
+        }
+    }
+
+    public record Clouds(
+    [property: JsonPropertyName(&quot;all&quot;)] int All
+    );
+
+    public record Coord(
+    [property: JsonPropertyName(&quot;lon&quot;)] double Lon,
+    [property: JsonPropertyName(&quot;lat&quot;)] double Lat
+    );
+
+    public record Main(
+    [property: JsonPropertyName(&quot;temp&quot;)] double Temp,
+    [property: JsonPropertyName(&quot;feels_like&quot;)] double FeelsLike,
+    [property: JsonPropertyName(&quot;temp_min&quot;)] double TempMin,
+    [property: JsonPropertyName(&quot;temp_max&quot;)] double TempMax,
+    [property: JsonPropertyName(&quot;pressure&quot;)] int Pressure,
+    [property: JsonPropertyName(&quot;humidity&quot;)] int Humidity
+    );
+
+    public record WeatherModel(
+    [property: JsonPropertyName(&quot;coord&quot;)] Coord Coord,
+    [property: JsonPropertyName(&quot;weather&quot;)] IReadOnlyList&lt;WeatherDetail&gt; Weather,
+    [property: JsonPropertyName(&quot;base&quot;)] string Base,
+    [property: JsonPropertyName(&quot;main&quot;)] Main Main,
+    [property: JsonPropertyName(&quot;visibility&quot;)] int Visibility,
+    [property: JsonPropertyName(&quot;wind&quot;)] Wind Wind,
+    [property: JsonPropertyName(&quot;clouds&quot;)] Clouds Clouds,
+    [property: JsonPropertyName(&quot;dt&quot;)] int Dt,
+    [property: JsonPropertyName(&quot;sys&quot;)] Sys Sys,
+    [property: JsonPropertyName(&quot;timezone&quot;)] int Timezone,
+    [property: JsonPropertyName(&quot;id&quot;)] int Id,
+    [property: JsonPropertyName(&quot;name&quot;)] string Name,
+    [property: JsonPropertyName(&quot;cod&quot;)] int Cod
+    );
+
+    public record Sys(
+    [property: JsonPropertyName(&quot;type&quot;)] int Type,
+    [property: JsonPropertyName(&quot;id&quot;)] int Id,
+    [property: JsonPropertyName(&quot;country&quot;)] string Country,
+    [property: JsonPropertyName(&quot;sunrise&quot;)] int Sunrise,
+    [property: JsonPropertyName(&quot;sunset&quot;)] int Sunset
+    );
+
+    public record WeatherDetail(
+    [property: JsonPropertyName(&quot;id&quot;)] int Id,
+    [property: JsonPropertyName(&quot;main&quot;)] string Main,
+    [property: JsonPropertyName(&quot;description&quot;)] string Description,
+    [property: JsonPropertyName(&quot;icon&quot;)] string Icon
+    );
+
+    public record Wind(
+    [property: JsonPropertyName(&quot;speed&quot;)] double Speed,
+    [property: JsonPropertyName(&quot;deg&quot;)] int Deg
+    );
+}
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[8,6,8,24,1],[9,5,9,6,1],[14,39,14,50,1],[15,38,15,66,1],[16,37,16,42,1],[20,5,20,6,1],[29,35,29,39,1],[29,40,29,44,1],[30,27,30,31,1],[30,32,30,36,1],[30,41,30,53,1],[33,5,33,6,1],[34,9,34,30,1],[35,9,36,9,1],[36,9,36,10,1],[36,10,38,13,1],[38,13,39,13,1],[39,13,39,14,1],[39,14,40,17,1],[40,17,40,70,1],[40,70,41,17,1],[41,17,41,35,1],[41,35,42,13,1],[42,13,42,14,1],[42,14,42,16,1],[42,16,43,9,1],[43,9,43,10,1],[43,10,43,27,1],[44,5,44,6,1],[47,5,47,6,1],[48,9,48,25,1],[49,9,49,10,1],[56,13,57,189,1],[59,13,59,35,1],[61,13,61,31,1],[62,9,62,10,1],[63,5,63,6,1],[66,5,66,6,1],[67,9,67,32,1],[68,9,68,10,0],[69,13,69,41,0],[70,9,70,10,0],[71,5,71,6,1],[74,5,74,48,0],[78,5,78,51,0],[79,5,79,51,0],[83,5,83,53,1],[84,5,84,64,1],[85,5,85,60,1],[86,5,86,60,1],[87,5,87,58,1],[88,5,88,58,1],[92,5,92,54,1],[93,5,93,81,1],[94,5,94,53,1],[95,5,95,51,1],[96,5,96,62,1],[97,5,97,51,1],[98,5,98,57,1],[99,5,99,46,1],[100,5,100,48,1],[101,5,101,58,1],[102,5,102,46,1],[103,5,103,53,1],[104,5,104,48,1],[108,5,108,50,0],[109,5,109,46,0],[110,5,110,59,0],[111,5,111,56,0],[112,5,112,54,0],[116,5,116,46,0],[117,5,117,53,0],[118,5,118,67,0],[119,5,119,53,0],[123,5,123,55,0],[124,5,124,48,0]]);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>/Users/hieu.le/sources/lambton/Software Tools and Emerging Technologies for AI and ML/my-weather-app/MyWeatherApp/Pages/Clock.razor</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+@inject IJSRuntime JS
+@implements IAsyncDisposable
+
+&lt;div class=&quot;clock-component&quot;&gt;
+    &lt;div class=&quot;clock&quot;&gt;@Time&lt;/div&gt;
+&lt;/div&gt;
+
+
+@code {
+    private IJSObjectReference? module;
+
+    private string Time { get; set; } = string.Empty;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        var timer = new System.Threading.Timer((_) =&gt;
+        {
+
+            InvokeAsync(()  =&gt;
+            {
+                Time =  DateTime.Now.ToString(&quot;yyyy-MM-dd HH:mm:ss&quot;);
+                StateHasChanged();
+            });
+        }, null, 0, 1000);
+
+    }
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            @* module = await JS.InvokeAsync&lt;IJSObjectReference&gt;(&quot;import&quot;,
+            &quot;./Pages/Clock.razor.js&quot;);
+
+            await module.InvokeAsync&lt;string&gt;(&quot;time&quot;); *@
+        }
+    }
+
+    async ValueTask IAsyncDisposable.DisposeAsync()
+    {
+        if (module is not null)
+        {
+            await module.DisposeAsync();
+        }
+    }
+}
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[5,25,5,30,1],[12,27,12,31,1],[12,32,12,36,1],[12,41,12,53,1],[15,5,15,6,1],[16,9,16,30,1],[17,9,18,9,1],[18,9,18,10,1],[18,10,20,13,1],[20,13,21,13,1],[21,13,21,14,1],[21,14,22,17,1],[22,17,22,70,1],[22,70,23,17,1],[23,17,23,35,1],[23,35,24,13,1],[24,13,24,14,1],[24,14,24,16,1],[24,16,25,9,1],[25,9,25,10,1],[25,10,25,27,1],[27,5,27,6,1],[29,5,29,6,1],[30,9,30,25,1],[31,9,31,10,1],[36,9,36,10,1],[37,5,37,6,1],[40,5,40,6,1],[41,9,41,32,1],[42,9,42,10,0],[43,13,43,41,0],[44,9,44,10,0],[45,5,45,6,1]]);
+    </script>
+  </body>
+</html>

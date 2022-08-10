@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>/Users/hieu.le/sources/lambton/Software Tools and Emerging Technologies for AI and ML/my-weather-app/MyWeatherApp/Pages/Index.razor</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+@inject Blazored.LocalStorage.ILocalStorageService localStorage
+@page &quot;/&quot;
+
+&lt;PageTitle&gt;Index&lt;/PageTitle&gt;
+
+@if (authData == null || authData.Length == 0)
+{
+    &lt;GoogleAuthentication /&gt;
+}
+else
+{
+    &lt;h1&gt;Hello, @authData[0].displayName!&lt;/h1&gt;
+    &lt;h5&gt;Welcome to our Final Project.&lt;/h5&gt;
+
+    &lt;Weather /&gt;
+}
+
+
+
+@code {
+    private Root[]? authData;
+
+    protected override async Task OnInitializedAsync()
+    {
+        authData = await localStorage.GetItemAsync&lt;Root[]?&gt;(&quot;firebaseui::rememberedAccounts&quot;);
+
+        @* await localStorage.SetItemAsync(&quot;name&quot;, &quot;John Smith&quot;);
+            var name = await localStorage.GetItemAsync&lt;string&gt;(&quot;name&quot;); *@
+    }
+
+    public record Root(
+    string email,
+    string displayName,
+    string photoUrl,
+    string providerId
+    );
+
+
+}
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[6,2,6,47,0],[7,1,7,2,0],[9,1,9,2,0],[11,1,11,2,0],[12,17,12,41,0],[16,1,16,2,0],[24,5,24,6,0],[25,9,25,95,0],[29,5,29,6,0],[32,5,32,17,0],[33,5,33,23,0],[34,5,34,20,0],[35,5,35,22,0]]);
+    </script>
+  </body>
+</html>

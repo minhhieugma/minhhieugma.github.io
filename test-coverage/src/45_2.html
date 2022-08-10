@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>/Users/hieu.le/sources/lambton/Software Tools and Emerging Technologies for AI and ML/my-weather-app/Tests/OurServicesTest.razor</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+@using MyWeatherApp.Pages
+@using RichardSzalay.MockHttp
+
+@code
+{
+    [Test]
+    public void FirstRendersCorrectly()
+    {
+    // Arrange
+        using var ctx = new TestContext();
+        var mock = ctx.Services.AddMockHttpClient();
+
+    // Act
+        var cut = ctx.RenderComponent&lt;OurServices&gt;();
+
+    // Assert
+        cut.MarkupMatches(@&quot;&lt;h1&gt;Our Services&lt;/h1&gt;&quot;);
+    }
+}
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[8,5,8,6,1],[10,9,10,43,1],[11,9,11,53,1],[14,9,14,54,1],[17,9,17,53,1],[18,5,18,6,1]]);
+    </script>
+  </body>
+</html>

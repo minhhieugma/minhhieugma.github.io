@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>/Users/hieu.le/sources/lambton/Software Tools and Emerging Technologies for AI and ML/my-weather-app/Tests/AboutUsTest.razor</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+@using MyWeatherApp.Pages
+@using RichardSzalay.MockHttp
+
+@code
+{
+    [Test]
+    public void FirstRendersCorrectly()
+    {
+    // Arrange
+        using var ctx = new TestContext();
+        var mock = ctx.Services.AddMockHttpClient();
+
+    // Act
+        var cut = ctx.RenderComponent&lt;AboutUs&gt;();
+
+    // Assert
+        cut.MarkupMatches(@&quot;&lt;h1&gt;Hello, classmates! We are Group 1&lt;/h1&gt;
+                          &lt;h3&gt;Welcome to our Final Project&lt;/h3&gt;
+        &lt;h4&gt;Software Tools and Emerging Technologies for AI and ML&lt;/h4&gt;
+        &lt;ul&gt;
+        &lt;li&gt;Binod Paudel C0814000&lt;/li&gt;
+        &lt;li&gt;Hieu Le C0817877&lt;/li&gt;
+        &lt;li&gt;Lekshmi Sheela C0812713&lt;/li&gt;
+        &lt;li&gt;Roshan Basnet C0806794&lt;/li&gt;
+        &lt;/ul&gt;&quot;);
+    }
+}
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[8,5,8,6,1],[10,9,10,43,1],[11,9,11,53,1],[14,9,14,50,1],[17,9,25,17,1],[26,5,26,6,1]]);
+    </script>
+  </body>
+</html>
