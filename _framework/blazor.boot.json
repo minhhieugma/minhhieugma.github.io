@@ -10,7 +10,7 @@
   "linkerEnabled": true,
   "resources": {
     "assembly": {
-      "BlazorApp.Wasm.wasm": "sha256-8FDQxbn1+yNv58DpHSifRhnwwZcY87nc3tj3YOiXDhM=",
+      "BlazorApp.Wasm.wasm": "sha256-ZqrOVdrdWRDyIwHjB09eFKGHYp9ys+0yRcxrPGq8e1s=",
       "Microsoft.AspNetCore.Components.wasm": "sha256-JnHyebis7gbFjYcy4RkMNi+LBvSqkaO+oZW86yLOPkk=",
       "Microsoft.AspNetCore.Components.Web.wasm": "sha256-kQ860IQObWmeUNSvL1UfJFRHZudeIJthAB42YaKMYMU=",
       "Microsoft.AspNetCore.Components.WebAssembly.wasm": "sha256-VSyQ5oiZaxXcyUoo9smSPEgEP3UfOws7Dod6NawuroA=",
